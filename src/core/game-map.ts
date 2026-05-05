@@ -6,20 +6,21 @@ import { Tile } from './tile.js';
 export class GameMap {
   name: string;
   type: TerrainType;
+  size: [number, number];
   tiles: Tile[] = [];
 
   constructor(mapConfig: MapConfig) {
     this.name = mapConfig.name;
     this.type = mapConfig.type;
+    this.size = mapConfig.size;
 
-    const tileSize = 30;
     const qMax = (mapConfig.size[0] - 1) / 2;
     const rMax = (mapConfig.size[1] - 1) / 2;
 
     for (let r = -rMax; r <= rMax; r++) {
       for (let q = -qMax - Math.floor(r / 2); q <= qMax - Math.floor((r + 1) / 2); q++) {
         const tileProps = mapConfig.terrains.find((i) => i.q == q && i.r == r);
-        this.tiles.push(new Tile(q, r, tileSize, tileProps?.type ?? mapConfig.type));
+        this.tiles.push(new Tile(q, r, tileProps?.type ?? mapConfig.type));
       }
     }
   }

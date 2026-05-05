@@ -44,6 +44,12 @@ export class Game {
     canvas.height = window.innerHeight;
     this.renderSystem.offsetX = window.innerWidth / 2;
     this.renderSystem.offsetY = window.innerHeight / 2;
+
+    const [cols, rows] = this.map.size;
+    const sizeFromWidth = canvas.width / (Math.sqrt(3) * (cols + 2));
+    const sizeFromHeight = canvas.height / (1.5 * (rows - 1) + 6);
+    this.renderSystem.tileSize = Math.min(sizeFromWidth, sizeFromHeight);
+
     for (const unit of this.units) {
       const { x, y } = this.renderSystem.axialToPixel(unit.coordinates);
       unit.x = x;

@@ -6,13 +6,11 @@ export class Tile {
   terrain: TerrainProperties;
   q: number;
   r: number;
-  size: number;
   isActive: boolean;
 
-  constructor(q: number, r: number, size: number, type: TerrainType) {
+  constructor(q: number, r: number, type: TerrainType) {
     this.q = q;
     this.r = r;
-    this.size = size;
     this.terrainType = type;
     this.terrain = TerrainConfigs[type];
     this.isActive = false;

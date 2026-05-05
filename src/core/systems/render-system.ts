@@ -15,13 +15,12 @@ export class RenderSystem {
 
   constructor(game: Game) {
     this.game = game;
+    this.layers = [new MapLayer(game), new HighlightsLayer(game), new UnitsLayer(game), new FloatingTextsLayer(game)];
     this.tileSize = 30;
 
-    const canvas = this.game.ctx.canvas;
+    const canvas = game.ctx.canvas;
     this.offsetX = canvas.width / 2;
     this.offsetY = canvas.height / 2;
-
-    this.layers = [new MapLayer(game), new HighlightsLayer(game), new UnitsLayer(game), new FloatingTextsLayer(game)];
   }
 
   render() {
