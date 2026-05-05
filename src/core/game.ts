@@ -67,6 +67,14 @@ export class Game {
     return this.units.find((unit) => unit.q == q && unit.r == r);
   }
 
+  selectUnit(unit: Unit) {
+    if (!this.turnSystem.isCurrentTeamUnit(unit)) return;
+    if (unit.actionPoints <= 0) return;
+    this.deselectUnit();
+    this.selectedUnit = unit;
+    unit.select();
+  }
+
   deselectUnit() {
     if (!this.selectedUnit) return;
     this.selectedUnit.deselect();

@@ -1,4 +1,3 @@
-import type { Unit } from '../../units/unit';
 import type { Game } from '../game';
 import type { Tile } from '../tile';
 
@@ -24,7 +23,7 @@ export class InputSystem {
     const unit = this.game.getUnitAt(q, r);
     if (!this.game.selectedUnit) {
       if (unit && this.game.turnSystem.isCurrentTeamUnit(unit)) {
-        this.selectUnit(unit);
+        this.game.selectUnit(unit);
       } else {
         return;
       }
@@ -33,7 +32,7 @@ export class InputSystem {
         this.moveUnitTo(tile);
       } else if (unit !== this.game.selectedUnit) {
         if (this.game.turnSystem.isCurrentTeamUnit(unit)) {
-          this.selectUnit(unit);
+          this.game.selectUnit(unit);
         } else {
           this.game.attackSystem.attack(this.game.selectedUnit, unit);
         }
@@ -41,13 +40,6 @@ export class InputSystem {
         this.game.deselectUnit();
       }
     }
-  }
-
-  selectUnit(unit: Unit) {
-    if (!this.game.turnSystem.isCurrentTeamUnit(unit)) return;
-    if (unit.actionPoints <= 0) return;
-    this.game.selectedUnit = unit;
-    unit.select();
   }
 
   moveUnitTo(tile: Tile) {
