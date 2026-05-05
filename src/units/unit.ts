@@ -8,6 +8,7 @@ export class Unit {
   x: number;
   y: number;
   hp: number;
+  maxHp: number;
   move: number;
   attack: number;
   range: number;
@@ -24,7 +25,8 @@ export class Unit {
     this.x = 0;
     this.y = 0;
 
-    this.hp = 10;
+    this.maxHp = 10;
+    this.hp = this.maxHp;
     this.move = 4;
     this.attack = 3;
     this.range = 1;
