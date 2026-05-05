@@ -7,7 +7,7 @@ export class TurnSystem {
 
   constructor(game: Game) {
     this.game = game;
-    this.currentTeamIndex = 0;
+    this.currentTeamIndex = 1;
   }
 
   endTurn() {
@@ -20,6 +20,10 @@ export class TurnSystem {
     for (const tile of this.game.map.tiles) {
       tile.setActive(false);
     }
+
+    const endTurnButton = document.getElementById('endTurn') as HTMLButtonElement;
+    endTurnButton.style.backgroundColor = this.game.teams[this.currentTeamIndex].color;
+    endTurnButton.style.color = this.game.teams[this.currentTeamIndex].textColor;
   }
 
   isCurrentTeamUnit(unit: Unit) {

@@ -37,6 +37,7 @@ export class Game {
 
     window.addEventListener('resize', () => this.resizeCanvas());
     this.resizeCanvas();
+    this.turnSystem.endTurn();
   }
 
   resizeCanvas() {
