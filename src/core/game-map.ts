@@ -29,7 +29,7 @@ export class GameMap {
     return this.tiles.find((tile) => tile.q == q && tile.r == r);
   }
 
-  neighbors(q: number, r: number): Tile[] {
+  neighbors({ q, r }: Coordinate): Tile[] {
     const dirs = [
       [+1, 0],
       [0, +1],

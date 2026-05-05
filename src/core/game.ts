@@ -7,6 +7,7 @@ import { TurnSystem } from './systems/turn-system';
 import { InputSystem } from './systems/input-system';
 import { MovementSystem } from './systems/movement-system';
 import { RenderSystem } from './systems/render-system';
+import type { Coordinate } from '../types';
 
 export class Game {
   ctx: CanvasRenderingContext2D;
@@ -70,5 +71,13 @@ export class Game {
     if (!this.selectedUnit) return;
     this.selectedUnit.deselect();
     this.selectedUnit = null;
+  }
+
+  isOccupied(coord: Coordinate) {
+    return this.units.findIndex((unit) => unit.q == coord.q && unit.r == coord.r) > -1;
+  }
+
+  filterOutOccupiedTiles(coords: Coordinate[]) {
+    return coords.filter((coord) => !this.isOccupied(coord));
   }
 }

@@ -67,7 +67,7 @@ export class MovementSystem {
 
       if (!current || current === goal) break;
 
-      for (let next of this.game.map.neighbors(current.q, current.r)) {
+      for (let next of this.game.filterOutOccupiedTiles(this.game.map.neighbors(current))) {
         let newCost = costSoFar[key(current)] + this.cost();
         if (costSoFar[key(next)] === undefined || newCost < costSoFar[key(next)]) {
           costSoFar[key(next)] = newCost;
@@ -86,13 +86,17 @@ export class MovementSystem {
     return path.reverse();
   }
 
+  distanceBetween(start: Coordinate, goal: Coordinate) {
+    return this.findPath(start, goal).length - 1;
+  }
+
   getHexCoordInMoveRange() {
     const unit = this.game.selectedUnit;
     if (!unit) return [];
 
     return this.game.map.tiles
       .filter((tile) => !tile.terrain.blocksMovement)
-      .filter((tile) => tile.distanceTo(unit.q, unit.r) <= unit.actionPoints)
+      .filter((tile) => this.distanceBetween(unit, tile) <= unit.actionPoints)
       .filter((tile) => {
         for (const u of this.game.units) {
           if (u.q == tile.q && u.r == tile.r) return false;
